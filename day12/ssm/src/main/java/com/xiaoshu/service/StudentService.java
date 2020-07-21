@@ -66,10 +66,17 @@ public class StudentService {
 
 	public PageInfo<StudentVo> findUserPage(StudentVo studentVo, int pageNum, int pageSize, String ordername, String order) {
 		PageHelper.startPage(pageNum, pageSize);
-		
+		//查询学生列表
 		List<StudentVo> slist = studentMapper.findPage(studentVo);
 		PageInfo<StudentVo> pageInfo = new PageInfo<StudentVo>(slist);
 		return pageInfo;
+	}
+	
+	
+	public List<StudentVo> findPage(StudentVo studentVo) {
+		//查询学生列表
+		List<StudentVo> slist = studentMapper.findPage(studentVo);
+		return slist;
 	}
 
 	//查询学校

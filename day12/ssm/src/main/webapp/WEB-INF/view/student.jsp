@@ -119,6 +119,24 @@
 			</div>
 		</div>
 	</div>
+	<!--导出对话框 -->
+	<div class="modal fade" id="modal_user_export" role="dialog" aria-labelledby="modal_user_export" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					 <h4 class="modal-title" id="modal_user_del_head"> 导出   </h4>
+				</div>
+				<div class="modal-body">
+							导出所选记录？
+				</div>
+				<div class="modal-footer">
+				<button type="button" class="btn btn-danger"  id="export_user_btn">导出</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+			</div>
+			</div>
+		</div>
+	</div>
 	
 	<!--报表对话框 -->
 	<div class="modal fade" id="modal_user_echarts" role="dialog" aria-labelledby="modal_user_echarts" aria-hidden="true">
@@ -352,6 +370,28 @@
 	    			$("#alertmod_table_user_mod").show();
 	    		}
 	        });
+	    	//导出弹框
+	    	$("#btn_export").click(function(){
+	    			$('#modal_user_export').modal({backdrop: 'static', keyboard: false});
+	    			$("#modal_user_export").show();
+	        });
+	    	//导出
+			$("#export_user_btn").click(function(){
+				$.ajax({
+				    url:"exportStudent.htm",
+				    dataType:"json",
+				    type:"post",
+				    success:function(res){
+				    	if(res.success){
+			    			$('#modal_user_export').modal('hide');
+			    			$("#btn_search").click();
+			    		}else{
+			    			$("#select_message").text(res.errorMsg);
+			    			$("#alertmod_table_user_mod").show();
+			    		}
+				    }
+				});
+			});	    	
 	    	//报表弹框
 	    	$("#btn_echarts").click(function(){
 	    		//初始化echarts
